@@ -130,32 +130,32 @@
 <body>
 <script>
 function lanzarGorros() {
-    const cantidad = 20; // número de gorros gigantes
+    const cantidad = 6; // poquitos gorros
 
     for (let i = 0; i < cantidad; i++) {
 
         const hat = document.createElement("div");
         hat.classList.add("hat");
 
-        // posición inicial baja
+        // Posición inicial (desde la parte baja de la pantalla)
         hat.style.left = Math.random() * 100 + "vw";
         hat.style.bottom = "-60px";
 
-        // trayectoria hacia arriba explosiva
-        const dx = (Math.random() - 0.5) * 800;  // dispersión horizontal enorme
-        const dy = -(Math.random() * 1000 + 600); // suben alto
+        // Movimiento hacia arriba
+        const dx = (Math.random() - 0.5) * 500;  // movimiento horizontal
+        const dy = -(Math.random() * 600 + 400); // altura
 
         hat.style.setProperty("--dx", dx + "px");
         hat.style.setProperty("--dy", dy + "px");
 
         document.body.appendChild(hat);
 
-        // remover después de caída
-        setTimeout(() => hat.remove(), 5500);
+        // Eliminar después de subir y caer
+        setTimeout(() => hat.remove(), 5000);
     }
 }
 
-// Solo una vez al cargar
+// Lanza solo una vez al entrar
 window.onload = lanzarGorros;
 </script>
 <div class="main">
