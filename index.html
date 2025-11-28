@@ -95,11 +95,8 @@
     opacity: 1;
     transform-origin: center;
 
-    animation:
-        hatLaunch var(--tSubida) ease-out,
-        hatPause 0.25s linear var(--tSubida),
-        hatFall var(--tCaida) cubic-bezier(0.15, 0.85, 0.35, 1) calc(var(--tSubida) + 0.25s)
-        forwards;
+    animation: hatLaunch var(--tSubida) ease-out,
+           hatFall var(--tCaida) ease-in-out var(--tSubida) forwards;
 }
 
 /* SUBIDA SUAVE con alturas dispersas */
@@ -137,7 +134,7 @@
 <body>
 <script>
 function lanzarGorros() {
-    const cantidad = 7;
+    const cantidad = 14;
 
     for (let i = 0; i < cantidad; i++) {
 
