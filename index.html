@@ -82,32 +82,7 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-/* SUBIDA hasta una altura aleatoria */
-@keyframes hatLaunch {
-    0% {
-        opacity: 1;
-        transform: translate(0, 0) rotate(0deg);
-    }
-    100% {
-        opacity: 1;
-        /* Altura dispersa (entre -25vh y -50vh) */
-        transform: translate(var(--dx), var(--altura)) rotate(var(--rot1));
-    }
-}
-
-/* CAÍDA lenta y suave */
-@keyframes hatFall {
-    0% {
-        opacity: 1;
-        transform: translate(var(--dx), var(--altura)) rotate(var(--rot1));
-    }
-    100% {
-        opacity: 0;
-        transform: translate(var(--dx), 70vh) rotate(var(--rot2));
-    }
-}
-
-/* Animación con suavidad */
+/* GORROS GRANDES */
 .hat {
     position: fixed;
     width: 200px;
@@ -117,10 +92,33 @@
     background-repeat: no-repeat;
     pointer-events: none;
 
-    animation:
-        hatLaunch var(--tSubida) ease-out,
-        hatFall var(--tCaida) ease-in-out var(--tSubida) forwards;
     opacity: 0;
+    animation: hatLaunch var(--tSubida) ease-out,
+               hatFall var(--tCaida) cubic-bezier(0.2, 0.8, 0.4, 1) var(--tSubida) forwards;
+}
+
+/* Subida */
+@keyframes hatLaunch {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(var(--dx), calc(var(--altura) * -1)) rotate(var(--rotA));
+    }
+}
+
+/* Caída NATURAL rápida */
+@keyframes hatFall {
+    0% {
+        opacity: 1;
+        transform: translate(var(--dx), calc(var(--altura) * -1)) rotate(var(--rotA));
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--dx), 90vh) rotate(var(--rotB));
+    }
 }
 </style>
 </head>
@@ -156,7 +154,7 @@ function lanzarGorros() {
 
         // Subida más rápida, caída MUY rápida y natural
         hat.style.setProperty("--tSubida", (0.8 + Math.random() * 0.4) + "s");
-        hat.style.setProperty("--tCaida", (3 + Math.random() * 1) + "s");
+        hat.style.setProperty("--tCaida", (0.8 + Math.random() * 0.5) + "s");
 
         document.body.appendChild(hat);
 
