@@ -103,7 +103,8 @@ async function cargarDatos() {
 
     // PDF
     const pdfUrl = fila[6]; // columna "url_pdf"
-    document.getElementById("visor").src = pdfUrl;
+    const pdfpreview = fila[5]; // columna "pdf_previewf"
+    document.getElementById("visor").src = pdfpreview;
     document.getElementById("pdf_link").href = pdfUrl;
 }
 
