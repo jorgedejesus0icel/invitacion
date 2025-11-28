@@ -82,12 +82,66 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+    /* Animación de gorros de graduación */
+.hat {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    background-image: url('https://png.pngtree.com/png-vector/20240422/ourmid/pngtree-realistic-mortar-board-hat-with-golden-tassel-for-bachelor-university-graduation-vector-png-image_12294781.png'); /* Gorro PNG */
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    animation: fly 2.5s ease-out forwards;
+}
+
+@keyframes fly {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, 0px) scale(0.6) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -300px) scale(1) rotate(45deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -600px) scale(0.8) rotate(90deg);
+    }
+}
 
 </style>
 </head>
 
 <body>
+<script>
+// Animación de gorritos al cargar la página
+function lanzarGorros() {
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            const hat = document.createElement("div");
+            hat.classList.add("hat");
 
+            // posición inicial aleatoria
+            hat.style.left = Math.random() * 100 + "vw";
+            hat.style.top = (Math.random() * 30 + 60) + "vh";
+
+            // retraso aleatorio
+            hat.style.animationDelay = (Math.random() * 1) + "s";
+
+            document.body.appendChild(hat);
+
+            // eliminar del DOM después de la animación
+            setTimeout(() => hat.remove(), 3000);
+        }, i * 150);
+    }
+}
+
+window.onload = lanzarGorros;
+</script>
 
 <div class="main">
 
