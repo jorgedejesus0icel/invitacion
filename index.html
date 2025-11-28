@@ -83,70 +83,70 @@
     100% { background-position: 0% 50%; }
 }
 
-/* GORROS DE GRADUACIÓN MÁS GRANDES Y EN DIFERENTES DIRECCIONES */
+/* GORROS DE GRADUACIÓN GRANDES */
 .hat {
     position: fixed;
-    width: 80px;      /* tamaño del gorro */
-    height: 80px;
-    background-image: url('gorro.png'); /* tu archivo */
+    width: 140px;        /* tamaño MUCHO más grande */
+    height: 140px;
+    background-image: url('gorro.png');
     background-size: contain;
     background-repeat: no-repeat;
     pointer-events: none;
+
     opacity: 0;
-    animation: hatFly 2.8s ease-out forwards;
+    animation: hatFly 3s ease-out forwards;
 }
 
-/* Animación con trayectorias curvas más naturales */
+/* Movimiento explosivo hacia distintas direcciones */
 @keyframes hatFly {
     0% {
         opacity: 1;
         transform: translate(0, 0) scale(1) rotate(0deg);
     }
-    50% {
+    40% {
         opacity: 1;
-        transform: translate(var(--dx), var(--dy)) scale(1.1) rotate(180deg);
+        transform: translate(var(--dx), var(--dy)) scale(1.2) rotate(180deg);
     }
     100% {
         opacity: 0;
-        transform: translate(calc(var(--dx) * 1.6), calc(var(--dy) * 2)) scale(0.9) rotate(360deg);
+        transform: translate(calc(var(--dx) * 1.5), calc(var(--dy) * 2)) scale(1) rotate(320deg);
     }
 }
-
 </style>
 </head>
 
 <body>
 <script>
 function lanzarGorros() {
-    const cantidad = 18; // cantidad de gorros
+    const cantidad = 22; // cuántos gorros quieres
 
     for (let i = 0; i < cantidad; i++) {
-        setTimeout(() => {
-            const hat = document.createElement("div");
-            hat.classList.add("hat");
 
-            // posición inicial aleatoria (parte baja de la pantalla)
-            hat.style.left = Math.random() * 100 + "vw";
-            hat.style.bottom = "-20px";
+        const hat = document.createElement("div");
+        hat.classList.add("hat");
 
-            // direcciones aleatorias hacia arriba y los lados
-            const dx = (Math.random() - 0.5) * 400;  // horizontal
-            const dy = -(Math.random() * 600 + 300); // vertical hacia arriba
+        // posición inicial desde abajo, pero en diferentes puntos
+        hat.style.left = Math.random() * 100 + "vw";
+        hat.style.bottom = "-40px";
 
-            hat.style.setProperty("--dx", dx + "px");
-            hat.style.setProperty("--dy", dy + "px");
+        // direcciones explosivas
+        const dx = (Math.random() - 0.5) * 700;  // horizontal más amplio
+        const dy = -(Math.random() * 900 + 300); // suben más alto
 
-            // retraso aleatorio
-            hat.style.animationDelay = (Math.random() * 0.6) + "s";
+        hat.style.setProperty("--dx", dx + "px");
+        hat.style.setProperty("--dy", dy + "px");
 
-            document.body.appendChild(hat);
+        // sin pausas → todos se lanzan juntos
+        hat.style.animationDelay = "0s";
 
-            // eliminar después de terminar
-            setTimeout(() => hat.remove(), 3500);
-        }, i * 120);
+        document.body.appendChild(hat);
+
+        // eliminar al terminar
+        setTimeout(() => hat.remove(), 3500);
     }
 }
 
+// Un solo lanzamiento al cargar
 window.onload = lanzarGorros;
 </script>
 <div class="main">
