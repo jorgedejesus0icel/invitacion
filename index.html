@@ -92,32 +92,43 @@
     background-repeat: no-repeat;
     pointer-events: none;
 
-    opacity: 0;
-    animation: hatLaunch var(--tSubida) ease-out,
-               hatFall var(--tCaida) cubic-bezier(0.2, 0.8, 0.4, 1) var(--tSubida) forwards;
+    opacity: 1;
+    transform-origin: center;
+
+    animation:
+        hatLaunch var(--tSubida) ease-out,
+        hatPause 0.25s linear var(--tSubida),
+        hatFall var(--tCaida) cubic-bezier(0.15, 0.85, 0.35, 1) calc(var(--tSubida) + 0.25s)
+        forwards;
 }
 
-/* Subida */
+/* SUBIDA SUAVE con alturas dispersas */
 @keyframes hatLaunch {
     0% {
-        opacity: 1;
         transform: translate(0, 0) rotate(0deg);
     }
     100% {
-        opacity: 1;
-        transform: translate(var(--dx), calc(var(--altura) * -1)) rotate(var(--rotA));
+        transform: translate(var(--dx), var(--altura)) rotate(var(--rotA));
     }
 }
 
-/* Caída NATURAL rápida */
-@keyframes hatFall {
+/* PAUSA ARRIBA */
+@keyframes hatPause {
     0% {
-        opacity: 1;
-        transform: translate(var(--dx), calc(var(--altura) * -1)) rotate(var(--rotA));
+        transform: translate(var(--dx), var(--altura)) rotate(var(--rotA));
     }
     100% {
-        opacity: 0;
-        transform: translate(var(--dx), 90vh) rotate(var(--rotB));
+        transform: translate(var(--dx), var(--altura)) rotate(var(--rotA));
+    }
+}
+
+/* CAÍDA NATURAL con curva suave y hasta el fondo */
+@keyframes hatFall {
+    0% {
+        transform: translate(var(--dx), var(--altura)) rotate(var(--rotA));
+    }
+    100% {
+        transform: translate(var(--dx), 100vh) rotate(var(--rotB));
     }
 }
 </style>
@@ -126,39 +137,41 @@
 <body>
 <script>
 function lanzarGorros() {
-    const cantidad = 6;
+    const cantidad = 7;
 
     for (let i = 0; i < cantidad; i++) {
 
         const hat = document.createElement("div");
         hat.classList.add("hat");
 
-        // Posición inicial
+        // Posición inicial dispersa
         hat.style.left = Math.random() * 100 + "vw";
-        hat.style.bottom = "-80px";
+        hat.style.bottom = "-120px";
 
-        // Movimiento horizontal disperso
-        const dx = (Math.random() - 0.5) * 350;
+        /* ❗DIRECCIÓN HORIZONTAL REALMENTE DIFERENTE */
+        const dx = (Math.random() - 0.5) * 600;
         hat.style.setProperty("--dx", dx + "px");
 
-        // Altura moderada (centro arriba)
-        const altura = (40 + Math.random() * 20) + "vh";
+        /* ❗ ALTURAS REALMENTE DIFERENTES (20vh - 60vh) */
+        const altura = -(20 + Math.random() * 40) + "vh";
         hat.style.setProperty("--altura", altura);
 
-        // Rotaciones en direcciones DIFERENTES (negativas y positivas)
-        const rotA = (Math.random() < 0.5 ? -1 : 1) * (60 + Math.random() * 120);
-        const rotB = (Math.random() < 0.5 ? -1 : 1) * (180 + Math.random() * 200);
+        /* ❗ GIROS completos aleatorios */
+        const rotA = (Math.random() * 200 - 100) + "deg"; // subida
+        const rotB = (Math.random() * 500 - 250) + "deg"; // caída
+        hat.style.setProperty("--rotA", rotA);
+        hat.style.setProperty("--rotB", rotB);
 
-        hat.style.setProperty("--rotA", rotA + "deg");
-        hat.style.setProperty("--rotB", rotB + "deg");
+        /* ❗ SUBIDA LENTA (1.2 – 2.1s) */
+        hat.style.setProperty("--tSubida", (1.2 + Math.random() * 0.9) + "s");
 
-        // Subida más rápida, caída MUY rápida y natural
-        hat.style.setProperty("--tSubida", (0.8 + Math.random() * 0.4) + "s");
-        hat.style.setProperty("--tCaida", (0.8 + Math.random() * 0.5) + "s");
+        /* ❗ CAÍDA NATURAL (1.3 – 2.3s) */
+        hat.style.setProperty("--tCaida", (1.3 + Math.random() * 1.0) + "s");
 
         document.body.appendChild(hat);
 
-        setTimeout(() => hat.remove(), 3000);
+        /* Remover luego de 6 segundos */
+        setTimeout(() => hat.remove(), 6000);
     }
 }
 
