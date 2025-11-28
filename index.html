@@ -82,7 +82,6 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-
 /* GORROS DE GRADUACIÓN MUY GRANDES */
 .hat {
     position: fixed;
@@ -94,34 +93,32 @@
     pointer-events: none;
 
     opacity: 0;
-    animation: hatLaunch 1.6s ease-out, hatFall 2s ease-in 1.6s forwards;
+    animation: hatLaunch var(--tSubida) ease-out,
+               hatFall var(--tCaida) ease-in var(--tSubida) forwards;
 }
 
-/* Subida: ya se ve como "aventado" pero sin llegar arriba */
+/* Subida */
 @keyframes hatLaunch {
     0% {
         opacity: 1;
         transform: translate(0, 0) rotate(0deg);
     }
-    60% {
-        opacity: 1;
-        transform: translate(var(--dx), -55vh) rotate(120deg); /* suben más que la mitad */
-    }
     100% {
         opacity: 1;
-        transform: translate(var(--dx), -45vh) rotate(160deg); /* se detienen arriba del centro */
+        /* altura variable */
+        transform: translate(var(--dx), calc(var(--altura) * -1)) rotate(var(--rotA));
     }
 }
 
-/* Caída desde esa altura */
+/* Caída */
 @keyframes hatFall {
     0% {
         opacity: 1;
-        transform: translate(var(--dx), -45vh) rotate(160deg);
+        transform: translate(var(--dx), calc(var(--altura) * -1)) rotate(var(--rotA));
     }
     100% {
         opacity: 0;
-        transform: translate(var(--dx), 100vh) rotate(300deg);
+        transform: translate(var(--dx), 100vh) rotate(var(--rotB));
     }
 }
 </style>
@@ -141,18 +138,31 @@ function lanzarGorros() {
         hat.style.left = Math.random() * 100 + "vw";
         hat.style.bottom = "-80px";
 
-        // Movimiento horizontal
-        const dx = (Math.random() - 0.5) * 250; 
+        // Dispersión horizontal distinta
+        const dx = (Math.random() - 0.5) * 300; 
         hat.style.setProperty("--dx", dx + "px");
+
+        // Altura variada (entre 45 y 65% de la pantalla)
+        const altura = (45 + Math.random() * 20) + "vh";
+        hat.style.setProperty("--altura", altura);
+
+        // Rotación distinta
+        hat.style.setProperty("--rotA", (80 + Math.random() * 140) + "deg");
+        hat.style.setProperty("--rotB", (200 + Math.random() * 160) + "deg");
+
+        // Diferentes tiempos de subida y caída
+        hat.style.setProperty("--tSubida", (1.2 + Math.random() * 0.8) + "s");
+        hat.style.setProperty("--tCaida", (1.8 + Math.random() * 1.0) + "s");
 
         document.body.appendChild(hat);
 
         // eliminar después
-        setTimeout(() => hat.remove(), 5000);
+        setTimeout(() => hat.remove(), 6000);
     }
 }
 
 window.onload = lanzarGorros;
+</script>
 </script>
 <div class="main">
 
