@@ -86,42 +86,39 @@
 /* GORROS DE GRADUACIÓN MUY GRANDES */
 .hat {
     position: fixed;
-    width: 200px;      /* súper grande */
+    width: 200px;
     height: 200px;
-    background-image: url('gorro.png');
+    background-image: url('gorro.png'); /* tu imagen */
     background-size: contain;
     background-repeat: no-repeat;
     pointer-events: none;
 
     opacity: 0;
-    animation: hatLaunch 3s ease-out, hatFall 2.2s linear 3s forwards;
+    animation: hatLaunch 2s ease-out, hatFall 2s linear 2s forwards;
 }
 
-/* Subida explosiva */
+/* Subida SOLO hasta la mitad */
 @keyframes hatLaunch {
     0% {
         opacity: 1;
-        transform: translate(0, 0) rotate(0deg) scale(1);
-    }
-    50% {
-        opacity: 1;
-        transform: translate(var(--dx), var(--dy)) rotate(160deg) scale(1.2);
+        transform: translate(0, 0) rotate(0deg);
     }
     100% {
         opacity: 1;
-        transform: translate(calc(var(--dx) * 1.2), calc(var(--dy) * 1.4)) rotate(260deg) scale(1);
+        /* suben pero solo hasta mitad de pantalla */
+        transform: translate(var(--dx), -40vh) rotate(160deg);
     }
 }
 
-/* Caída con gravedad */
+/* Caída */
 @keyframes hatFall {
     0% {
         opacity: 1;
-        transform: translate(calc(var(--dx) * 1.2), calc(var(--dy) * 1.4)) rotate(260deg);
+        transform: translate(var(--dx), -40vh) rotate(160deg);
     }
     100% {
         opacity: 0;
-        transform: translate(calc(var(--dx) * 1.2), 120vh) rotate(340deg);
+        transform: translate(var(--dx), 100vh) rotate(300deg);
     }
 }
 </style>
@@ -130,7 +127,7 @@
 <body>
 <script>
 function lanzarGorros() {
-    const cantidad = 6; // pocos gorros
+    const cantidad = 9; // pocos gorros
 
     for (let i = 0; i < cantidad; i++) {
 
