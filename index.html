@@ -63,13 +63,12 @@
             height: 300px;
         }
     }
-    body {
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(-45deg, #ffdde1, #ee9ca7, #b5c6e0, #d7f3ff);
-    background-size: 400% 400%;
-    animation: fondoMovimiento 12s ease infinite;
+    overflow: hidden;
+    background: #f5f5f5;
 
     display: flex;
     justify-content: center;
@@ -77,15 +76,30 @@
     min-height: 100vh;
 }
 
-@keyframes fondoMovimiento {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* burbujas */
+.bubble {
+    position: fixed;
+    bottom: -100px;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 193, 7, 0.6);
+    border-radius: 50%;
+    animation: rise 8s infinite ease-in;
+}
+
+@keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
+<div class="bubble" style="left: 10%; animation-delay: 0s;"></div>
+<div class="bubble" style="left: 30%; animation-delay: 1s;"></div>
+<div class="bubble" style="left: 50%; animation-delay: 2s;"></div>
+<div class="bubble" style="left: 70%; animation-delay: 3s;"></div>
+<div class="bubble" style="left: 90%; animation-delay: 4s;"></div>
 
 <div class="main">
 
