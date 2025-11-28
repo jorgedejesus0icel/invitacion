@@ -93,8 +93,8 @@
     pointer-events: none;
 
     opacity: 0;
-    animation: hatLaunch var(--tSubida) ease-out,
-               hatFall var(--tCaida) cubic-bezier(0.2, 0.8, 0.4, 1) var(--tSubida) forwards;
+    animation: hatLaunch var(--tSubida) cubic-bezier(0.15, 0.75, 0.35, 1),
+           hatFall var(--tCaida) cubic-bezier(0.4, 0.1, 0.6, 1) var(--tSubida) forwards;
 }
 
 /* Subida */
@@ -154,7 +154,7 @@ function lanzarGorros() {
 
         // Subida más rápida, caída MUY rápida y natural
         hat.style.setProperty("--tSubida", (0.8 + Math.random() * 0.8) + "s");
-        hat.style.setProperty("--tCaida", (2 + Math.random() * 0.5) + "s");
+        hat.style.setProperty("--tCaida", (3 + Math.random() * 1) + "s");
 
         document.body.appendChild(hat);
 
