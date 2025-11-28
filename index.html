@@ -126,7 +126,7 @@
 <body>
 <script>
 function lanzarGorros() {
-    const cantidad = 8;
+    const cantidad = 14;
 
     for (let i = 0; i < cantidad; i++) {
 
@@ -154,7 +154,7 @@ function lanzarGorros() {
 
         // Subida más rápida, caída MUY rápida y natural
         hat.style.setProperty("--tSubida", (0.8 + Math.random() * 0.4) + "s");
-        hat.style.setProperty("--tCaida", (0.8 + Math.random() * 0.5) + "s");
+        hat.style.setProperty("--tCaida", (0.9 + Math.random() * 0.8) + "s");
 
         document.body.appendChild(hat);
 
