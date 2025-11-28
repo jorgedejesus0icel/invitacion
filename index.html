@@ -9,22 +9,21 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        margin: 20px;
+        margin: 0;
         padding: 0;
         background: #f9f9f9;
+
+        /* Centrado total */
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
     }
 
-    h3 {
-        font-size: 20px;
-    }
-
-    #url {
+    .main {
         width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
+        max-width: 1000px;
+        padding: 20px;
     }
 
     .container {
@@ -32,10 +31,13 @@
         gap: 20px;
         margin-top: 20px;
         flex-wrap: wrap;
+        justify-content: center;
     }
 
     .panel {
         flex: 1;
+        min-width: 300px;
+        max-width: 450px;
         border: 2px solid #aaa;
         background: #fff;
         padding: 20px;
@@ -50,37 +52,13 @@
         border: none;
     }
 
-    /* 🔥 Modo celular */
     @media (max-width: 768px) {
-        body {
-            margin: 10px;
-        }
-
-        .container {
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .panel {
-            width: 100%;
-        }
-
         iframe {
             height: 350px;
         }
     }
 
-    /* 🔥 Modo muy pequeño (celulares mini) */
     @media (max-width: 480px) {
-        h3 {
-            font-size: 18px;
-        }
-
-        #url {
-            font-size: 14px;
-            padding: 8px;
-        }
-
         iframe {
             height: 300px;
         }
@@ -90,27 +68,30 @@
 
 <body>
 
+<div class="main">
 
-<div class="container">
+    <div class="container">
 
-    <!-- PANEL IZQUIERDO -->
-    <div class="panel">
-        <h4>PDF personalizado</h4>
-        <p><b>Matrícula:</b> <span id="matricula"></span></p>
+        <!-- PANEL IZQUIERDO -->
+        <div class="panel">
+            <h4>PDF personalizado</h4>
+            <p><b>Matrícula:</b> <span id="matricula"></span></p>
 
-        <iframe id="visor"></iframe>
+            <iframe id="visor"></iframe>
 
-        <p><a id="pdf_link" href="#" target="_blank">Abrir PDF en nueva pestaña</a></p>
-    </div>
+            <p><a id="pdf_link" href="#" target="_blank">Abrir PDF en nueva pestaña</a></p>
+        </div>
 
-    <!-- PANEL DERECHO -->
-    <div class="panel">
-        <h4>Información adicional</h4>
+        <!-- PANEL DERECHO -->
+        <div class="panel">
+            <h4>Información adicional</h4>
 
-        <p><b>Nombre:</b> <span id="nombre"></span></p>
-        <p><b>Fecha del evento:</b> <span id="fecha"></span></p>
-        <p><b>Hora:</b> <span id="hora"></span></p>
-        <p><b>Lugar:</b> <span id="lugar"></span></p>
+            <p><b>Nombre:</b> <span id="nombre"></span></p>
+            <p><b>Fecha del evento:</b> <span id="fecha"></span></p>
+            <p><b>Hora:</b> <span id="hora"></span></p>
+            <p><b>Lugar:</b> <span id="lugar"></span></p>
+        </div>
+
     </div>
 
 </div>
@@ -118,7 +99,6 @@
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSsO-WFl736N6-bQ0e5H6OTgcOgVEhIBqaw9aPkg80OenTw1e6V0ZNO3dW6VNs5aZkqX8g8jwP3OitU/pub?gid=0&single=true&output=csv";
 
-// Obtener matrícula de la URL
 const params = new URLSearchParams(window.location.search);
 const matriculaBuscar = params.get("matricula");
 
@@ -126,25 +106,19 @@ if (!matriculaBuscar) {
     document.body.innerHTML = "<h2 style='text-align:center;margin-top:40px;'>Falta el parámetro <b>?matricula=</b> en la URL</h2>";
 }
 
-// Mostrar URL de acceso directo
-document.getElementById("url").value = window.location.href;
-
-// Convertir CSV a array
 function parseCSV(texto) {
     return texto
         .trim()
         .split("\n")
-        .map(fila => fila.split(",").map(v => v.replace(/"/g, "").trim()));
+        .map(fila => fila.split(",").map(v => v.replace(/\"/g, "").trim()));
 }
 
 async function cargarDatos() {
     const resp = await fetch(CSV_URL);
     const texto = await resp.text();
     const data = parseCSV(texto);
-
     const rows = data.slice(1);
 
-    // Buscar la fila por matrícula
     const fila = rows.find(r => r[0] === matriculaBuscar);
 
     if (!fila) {
@@ -152,14 +126,12 @@ async function cargarDatos() {
         return;
     }
 
-    // Asignar valores
     document.getElementById("matricula").textContent = fila[0];
     document.getElementById("nombre").textContent = fila[1];
     document.getElementById("fecha").textContent = fila[2];
     document.getElementById("hora").textContent = fila[3];
     document.getElementById("lugar").textContent = fila[4];
 
-    // PDF
     const pdfUrl = fila[6];
     const pdfPreview = fila[5];
 
