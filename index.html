@@ -1,15 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Información del evento</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Invitación de Graduación</title>
+<style>
+    body { font-family: Arial; margin: 0; padding: 0; background: #f2f2f2; }
+    .container { display: flex; height: 100vh; }
+    .left, .right {
+        flex: 1; padding: 30px; display: flex; flex-direction: column;
+        justify-content: center; align-items: center;
+    }
+    .left { background: white; }
+    .right { background: #1b396a; color: white; }
+    .card {
+        padding: 20px; background: #fff; border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2); max-width: 400px;
+    }
+    .hidden { display: none; }
+</style>
 </head>
 
 <body>
 
-    <div id="contenido">Cargando datos...</div>
+<div class="container">
+    <!-- PANEL IZQUIERDO -->
+    <div class="left">
+        <div id="panel-izquierdo" class="card">
+            <h2>¡Hola <span id="nombre"></span>!</h2>
+            <p>Te invitamos cordialmente a la ceremonia de graduación.</p>
+            <p><strong>Generación:</strong> <span id="generacion"></span></p>
+            <p><strong>Programa académico:</strong> <span id="programa"></span></p>
+        </div>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- PANEL DERECHO -->
+    <div class="right">
+        <div id="panel-derecho" class="card">
+            <h2>Tu información</h2>
+            <p><strong>Matrícula:</strong> <span id="matricula"></span></p>
+            <p><strong>Mensaje:</strong> <span id="mensaje"></span></p>
+            <p><strong>Sede:</strong> <span id="sede"></span></p>
+        </div>
+    </div>
+</div>
+
+<script>
+// URL de tu CSV (Google Sheets)
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSsO-WFl736N6-bQ0e5H6OTgcOgVEhIBqaw9aPkg80OenTw1e6V0ZNO3dW6VNs5aZkqX8g8jwP3OitU/pub?gid=0&single=true&output=csv";
+
+// Obtener ID de la URL (?id=XXXX)
+const params = new URLSearchParams(window.location.search);
+const idBuscar = params.get("id");  
+
+if(!idBuscar){
+    document.body.innerHTML = "<h2 style='text-align:center;margin-top:40px;'>URL inválida. Falta el parámetro <b>?id=</b></h2>";
+}
+
+// Función para leer CSV
+async function leeCSV(url){
+    const resp = await fetch(url);
+    const texto = await resp.text();
+    return texto.split("\n").map(row => row.split(","));
+}
+
+// Cargar datos y mostrar invitación
+leeCSV(CSV_URL).then(data => {
+    const headers = data[0]; 
+    const rows = data.slice(1);
+
+    // Buscar fila que coincida con el ID de la URL
+    const fila = rows.find(r => r[0] == idBuscar);  // Matricula en columna 0
+
+    if(!fila){
+        document.body.innerHTML = "<h2 style='text-align:center;margin-top:40px;'>Invitación no encontrada.</h2>";
+        return;
+    }
+
+    // Asignar valores
+    document.getElementById("nombre").textContent = fila[1];     // Nombre
+    document.getElementById("generacion").textContent = fila[2]; // Generación
+    document.getElementById("programa").textContent = fila[3];   // Programa
+    document.getElementById("matricula").textContent = fila[0];  // Matrícula
+    document.getElementById("mensaje").textContent = fila[4];    // Mensaje
+    document.getElementById("sede").textContent = fila[5];       // Sede
+});
+</script>
+
 </body>
 </html>
