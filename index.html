@@ -102,8 +102,8 @@ async function cargarDatos() {
     document.getElementById("lugar").textContent = fila[4];
 
     // PDF
-    const pdfUrl = fila[6]; // columna "url_pdf"
-    const pdfpreview = fila[5]; // columna "pdf_previewf"
+    const pdfUrl = fila[7]; // columna "url_pdf"
+    const pdfpreview = fila[6]; // columna "pdf_preview"
     document.getElementById("visor").src = pdfpreview;
     document.getElementById("pdf_link").href = pdfUrl;
 }
