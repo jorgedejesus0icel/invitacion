@@ -88,33 +88,36 @@
     position: fixed;
     width: 200px;
     height: 200px;
-    background-image: url('gorro.png'); /* tu imagen */
+    background-image: url('gorro.png');
     background-size: contain;
     background-repeat: no-repeat;
     pointer-events: none;
 
     opacity: 0;
-    animation: hatLaunch 2s ease-out, hatFall 2s linear 2s forwards;
+    animation: hatLaunch 1.6s ease-out, hatFall 2s ease-in 1.6s forwards;
 }
 
-/* Subida SOLO hasta la mitad */
+/* Subida: ya se ve como "aventado" pero sin llegar arriba */
 @keyframes hatLaunch {
     0% {
         opacity: 1;
         transform: translate(0, 0) rotate(0deg);
     }
+    60% {
+        opacity: 1;
+        transform: translate(var(--dx), -55vh) rotate(120deg); /* suben más que la mitad */
+    }
     100% {
         opacity: 1;
-        /* suben pero solo hasta mitad de pantalla */
-        transform: translate(var(--dx), -40vh) rotate(160deg);
+        transform: translate(var(--dx), -45vh) rotate(160deg); /* se detienen arriba del centro */
     }
 }
 
-/* Caída */
+/* Caída desde esa altura */
 @keyframes hatFall {
     0% {
         opacity: 1;
-        transform: translate(var(--dx), -40vh) rotate(160deg);
+        transform: translate(var(--dx), -45vh) rotate(160deg);
     }
     100% {
         opacity: 0;
@@ -127,7 +130,7 @@
 <body>
 <script>
 function lanzarGorros() {
-    const cantidad = 9; // pocos gorros
+    const cantidad = 6; // pocos gorros
 
     for (let i = 0; i < cantidad; i++) {
 
@@ -136,16 +139,16 @@ function lanzarGorros() {
 
         // Posición inicial abajo
         hat.style.left = Math.random() * 100 + "vw";
-        hat.style.bottom = "-50px";
+        hat.style.bottom = "-80px";
 
         // Movimiento horizontal
-        const dx = (Math.random() - 0.5) * 300; 
+        const dx = (Math.random() - 0.5) * 250; 
         hat.style.setProperty("--dx", dx + "px");
 
         document.body.appendChild(hat);
 
         // eliminar después
-        setTimeout(() => hat.remove(), 4500);
+        setTimeout(() => hat.remove(), 5000);
     }
 }
 
