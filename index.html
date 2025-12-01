@@ -57,27 +57,8 @@
         min-height: 280px;     /* ✔ más alto */
         border-radius: 14px;
         animation: sombraSuave 4s ease-in-out infinite;
+        margin: 20px auto;
     }
-
-    .panel-derecho {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 35px;
-}
-
-.panel-derecho ul {
-    text-align: left;
-    width: 90%;
-    max-width: 420px;
-    margin: auto;
-}
-
-.panel-derecho li {
-    margin-bottom: 8px;
-}
 
    
 
@@ -120,6 +101,24 @@
         animation: hatLaunch var(--tSubida) ease-out,
                    hatFall var(--tCaida) ease-in-out var(--tSubida) forwards;
     }
+    /* Centrar SOLO los lineamientos */
+.lineamientos {
+    text-align: center;      /* ✔ centrado principal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.lineamientos ul {
+    text-align: left;     /* ✔ los bullets alineados bonitos */
+    width: 90%;
+    max-width: 420px;
+}
+
+.lineamientos p {
+    text-align: center;   /* ✔ título centrado */
+}
 </style>
 </head>
 
@@ -161,7 +160,6 @@ window.onload = lanzarGorros;
 <div class="main">
 <div class="container">
 
-
     <!-- PANEL IZQUIERDO -->
     <div class="panel">
         <iframe id="visor"></iframe>
@@ -172,29 +170,29 @@ window.onload = lanzarGorros;
 
     <!-- PANEL DERECHO -->
     <div class="panel">
-    <div class="panel panel-derecho"
+        
         <p><b>Matrícula:</b> <span id="matricula"></span></p>
         <p><b>Nombre:</b> <span id="nombre"></span></p>
         <p><b>Fecha del evento:</b> <span id="fecha"></span></p>
         <p><b>Hora:</b> <span id="hora"></span></p>
         <p><b>Lugar:</b> <span id="lugar"></span></p>
-       <br>
-        <br>
-        <h3 style="text-align:center; margin-top:20px; font-size:28px;">Lineamientos</h3>
+     
+        <div class="lineamientos">
+    <h3 style="margin-top:20px; font-size:28px;">Lineamientos</h3>
 
-        <ul style="padding-left:15px; text-align:justify; list-style-type: disc;">
-            <p style="font-size:17px; font-weight:bold;">
-                UNA VEZ INICIADA LA CEREMONIA NO SE PERMITIRÁ EL ACCESO AL EVENTO.
-            </p>
+    <p style="font-size:17px; font-weight:bold;">
+        UNA VEZ INICIADA LA CEREMONIA NO SE PERMITIRÁ EL ACCESO AL EVENTO.
+    </p>
 
-            <li>El día del evento no se permitirá el pago de toga...</li>
-            <li>El acceso para los alumnos será por la puerta 1...</li>
-            <li>El acceso para los invitados será por la puerta 2...</li>
-            <li>Los invitados deben presentar su pase individual...</li>
-            <li>El alumno ingresa con su credencial...</li>
-            <li>Debe pagarse la toga para recoger los pases...</li>
-        </ul>
-    </div>
+    <ul style="list-style-type: disc;">
+        <li>El día del evento no se permitirá el pago de toga...</li>
+        <li>El acceso para los alumnos será por la puerta 1...</li>
+        <li>El acceso para los invitados será por la puerta 2...</li>
+        <li>Los invitados deben presentar su pase individual...</li>
+        <li>El alumno ingresa con su credencial...</li>
+        <li>Debe pagarse la toga para recoger los pases...</li>
+    </ul>
+</div>
 
   </div>
 </div>
