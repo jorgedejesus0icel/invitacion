@@ -102,7 +102,25 @@
     0% { transform: translate(var(--dx), var(--altura)) rotate(var(--rotA)); }
     100% { transform: translate(var(--dx), 100vh) rotate(var(--rotB)); }
 }
+/* SOMBRA SUAVE ANIMADA */
+.panel {
+    animation: sombraSuave 4s ease-in-out infinite;
+}
 
+@keyframes sombraSuave {
+    0% {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+        transform: translateY(0px);
+    }
+    50% {
+        box-shadow: 0 8px 20px rgba(0,0,0,0.26);
+        transform: translateY(-4px);
+    }
+    100% {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+        transform: translateY(0px);
+    }
+}
 </style>
 </head>
 
