@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Invitación</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #8fa1c7 0%, #b5c6e0 25%, #e9f1fa 50%, #b5c6e0 75%, #8fa1c7 100%);
+        background-size: 400% 400%;
+        animation: fondoMovimiento 12s ease infinite;
+
+        /* CENTRADO REAL EN TODA LA PANTALLA */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 30px 10px;
+    }
+
+    @keyframes fondoMovimiento {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .main {
+        width: 100%;
+        max-width: 1300px;  /* ✔ MÁS GRANDE en PC */
+        display: flex;
+        justify-content: center;
+    }
+
+    /* CONTENEDOR DE PANELES */
+    .container {
+        display: flex;
+        gap: 35px;          /* ✔ Más separación */
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    /* PANEL MÁS GRANDE Y RESPONSIVE */
+    .panel {
+        flex: 1;
+        min-width: 380px;      /* ✔ más grande en móvil */
+        max-width: 600px;      /* ✔ más grande en PC */
+        border: 2px solid #aaa;
+        background: #fff;
+        padding: 25px;
+        min-height: 280px;     /* ✔ más alto */
+        border-radius: 14px;
+        animation: sombraSuave 4s ease-in-out infinite;
+        margin: 20px auto;
+    }
+
+   
+
+    /* IFRAME más grande pero controlado */
+    iframe {
+        width: 100%;
+        height: 500px; /* ✔ más grande */
+        border: none;
+    }
+
+    @media (max-width: 768px) {
+        .panel {
+            max-width: 90%;
+        }
+        iframe {
+            height: 420px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .panel {
+            min-width: 95%;
+        }
+        iframe {
+            height: 360px;
+        }
+    }
+
+    /* Animación de gorros (la mantuve igual) */
+    .hat {
+        position: fixed;
+        width: 200px;
+        height: 200px;
+        background-image: url('gorro.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none;
+        opacity: 1;
+        transform-origin: center;
+        animation: hatLaunch var(--tSubida) ease-out,
+                   hatFall var(--tCaida) ease-in-out var(--tSubida) forwards;
+    }
+    /* Centrar SOLO los lineamientos */
+.lineamientos {
+    text-align: center;      /* ✔ centrado principal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.lineamientos ul {
+    text-align: left;     /* ✔ los bullets alineados bonitos */
+    width: 90%;
+    max-width: 420px;
+}
+
+.lineamientos p {
+    text-align: center;   /* ✔ título centrado */
+}
+</style>
+</head>
+
+<body>
+
+<script>
+function lanzarGorros() {
+    const cantidad = 14;
+
+    for (let i = 0; i < cantidad; i++) {
+        const hat = document.createElement("div");
+        hat.classList.add("hat");
+
+        hat.style.left = Math.random() * 100 + "vw";
+        hat.style.bottom = "-120px";
+
+        const dx = (Math.random() - 0.5) * 600;
+        hat.style.setProperty("--dx", dx + "px");
+
+        const altura = -(20 + Math.random() * 40) + "vh";
+        hat.style.setProperty("--altura", altura);
+
+        const rotA = (Math.random() * 200 - 100) + "deg";
+        const rotB = (Math.random() * 500 - 250) + "deg";
+        hat.style.setProperty("--rotA", rotA);
+        hat.style.setProperty("--rotB", rotB);
+
+        hat.style.setProperty("--tSubida", (1.2 + Math.random() * 0.9) + "s");
+        hat.style.setProperty("--tCaida", (1.3 + Math.random() * 1.0) + "s");
+
+        document.body.appendChild(hat);
+        setTimeout(() => hat.remove(), 6000);
+    }
+}
+
+window.onload = lanzarGorros;
+</script>
+
+<div class="main">
+<div class="container">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="panel">
+        <iframe id="visor"></iframe>
+        <p style="text-align:center; margin-top:10px;">
+            <a id="pdf_link" href="#" target="_blank">Abrir PDF en nueva pestaña</a>
+        </p>
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="panel">
+        
+        <p><b>Matrícula:</b> <span id="matricula"></span></p>
+        <p><b>Nombre:</b> <span id="nombre"></span></p>
+        <p><b>Fecha del evento:</b> <span id="fecha"></span></p>
+        <p><b>Hora:</b> <span id="hora"></span></p>
+        <p><b>Lugar:</b> <span id="lugar"></span></p>
+     
+        <div class="lineamientos">
+    <h3 style="margin-top:20px; font-size:28px;">Lineamientos</h3>
+
+    <p style="font-size:17px; font-weight:bold;">
+        UNA VEZ INICIADA LA CEREMONIA NO SE PERMITIRÁ EL ACCESO AL EVENTO.
+    </p>
+
+    <ul style="list-style-type: disc;">
+        <li>El día del evento no se permitirá el pago de toga...</li>
+        <li>El acceso para los alumnos será por la puerta 1...</li>
+        <li>El acceso para los invitados será por la puerta 2...</li>
+        <li>Los invitados deben presentar su pase individual...</li>
+        <li>El alumno ingresa con su credencial...</li>
+        <li>Debe pagarse la toga para recoger los pases...</li>
+    </ul>
+</div>
+
+  </div>
+</div>
+
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSsO-WFl736N6-bQ0e5H6OTgcOgVEhIBqaw9aPkg80OenTw1e6V0ZNO3dW6VNs5aZkqX8g8jwP3OitU/pub?gid=0&single=true&output=csv";
+
+const params = new URLSearchParams(window.location.search);
+const matriculaBuscar = params.get("matricula");
+
+if (!matriculaBuscar) {
+    document.body.innerHTML = "<h2 style='text-align:center;margin-top:40px;'>Falta el parámetro <b>?matricula=</b> en la URL</h2>";
+}
+
+function parseCSV(texto) {
+    return texto
+        .trim()
+        .split("\n")
+        .map(fila => fila.split(",").map(v => v.replace(/\"/g, "").trim()));
+}
+
+async function cargarDatos() {
+    const resp = await fetch(CSV_URL);
+    const texto = await resp.text();
+    const data = parseCSV(texto);
+    const rows = data.slice(1);
+
+    const fila = rows.find(r => r[0] === matriculaBuscar);
+
+    if (!fila) {
+        document.body.innerHTML = `<h2 style="text-align:center;margin-top:40px;">No se encontró la matrícula <b>${matriculaBuscar}</b></h2>`;
+        return;
+    }
+
+    document.getElementById("matricula").textContent = fila[0];
+    document.getElementById("nombre").textContent = fila[1];
+    document.getElementById("fecha").textContent = fila[2];
+    document.getElementById("hora").textContent = fila[3];
+    document.getElementById("lugar").textContent = fila[4];
+
+    const pdfUrl = fila[6];
+    const pdfPreview = fila[5];
+
+    document.getElementById("visor").src = pdfPreview;
+    document.getElementById("pdf_link").href = pdfUrl;
+}
+
+cargarDatos();
+</script>
+
+</body>
+</html>
