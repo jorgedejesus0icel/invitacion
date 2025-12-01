@@ -48,18 +48,24 @@ body {
 
     /* PANEL MÁS GRANDE Y RESPONSIVE */
     .panel {
-        flex: 1;
-        min-width: 380px;      /* ✔ más grande en móvil */
-        max-width: 600px;   /* ✔ más grande en PC */
-        margin: 20px auto;  
-        border: 2px solid #aaa;
-        background: #fff;
-        padding: 25px;
-        min-height: 280px;     /* ✔ más alto */
-        border-radius: 14px;
-        animation: sombraSuave 4s ease-in-out infinite;
-        
-    }
+    flex: 1;
+    min-width: 380px;
+    max-width: 600px;
+    margin: 20px auto;
+    
+    /* ✔ BORDE NEGRO REALMENTE VISIBLE */
+    border: 2px solid #000;
+
+    background: #fff;
+    padding: 25px;
+    min-height: 280px;
+    border-radius: 14px;
+
+    /* ✔ SOMBRA AJUSTADA PARA QUE NO TAPE EL BORDE */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+
+    animation: sombraSuave 4s ease-in-out infinite;
+}
 
    
 
