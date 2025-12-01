@@ -15,7 +15,7 @@
         background-size: 400% 400%;
         animation: fondoMovimiento 12s ease infinite;
 
-        /* CENTRADO REAL */
+        /* CENTRADO REAL EN TODA LA PANTALLA */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -29,98 +29,91 @@
         100% { background-position: 0% 50%; }
     }
 
-    /* CONTENEDOR PRINCIPAL CENTRADO */
+    /* CONTENEDOR PRINCIPAL */
     .main {
         width: 100%;
-        max-width: 1100px;      /* ✔ Más grande */
+        max-width: 1300px;  /* ✔ MÁS GRANDE en PC */
         display: flex;
         justify-content: center;
     }
 
-    /* CONTENEDOR DE LOS PANELES */
+    /* CONTENEDOR DE PANELES */
     .container {
         display: flex;
-        gap: 25px;
-        justify-content: center; /* ✔ Centrado */
+        gap: 35px;          /* ✔ Más separación */
+        justify-content: center;
         flex-wrap: wrap;
         width: 100%;
     }
 
-    /* PANELES MÁS GRANDES */
+    /* PANEL MÁS GRANDE Y RESPONSIVE */
     .panel {
         flex: 1;
-        min-width: 330px;        /* ✔ Un poco más ancho en cel */
-        max-width: 500px;        /* ✔ Más ancho en PC */
+        min-width: 380px;      /* ✔ más grande en móvil */
+        max-width: 600px;      /* ✔ más grande en PC */
         border: 2px solid #aaa;
         background: #fff;
-        padding: 20px;
-        min-height: 250px;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        padding: 25px;
+        min-height: 280px;     /* ✔ más alto */
+        border-radius: 14px;
+        animation: sombraSuave 4s ease-in-out infinite;
     }
 
-    /* EXPANDIR IFRAME HACIA ARRIBA SIN CAMBIAR TAMAÑO DEL PANEL */
+    /* SOMBRA SUAVE ANIMADA */
+    @keyframes sombraSuave {
+        0% {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            transform: translateY(0px);
+        }
+        50% {
+            box-shadow: 0 10px 28px rgba(0,0,0,0.26);
+            transform: translateY(-6px);
+        }
+        100% {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            transform: translateY(0px);
+        }
+    }
+
+    /* IFRAME más grande pero controlado */
     iframe {
         width: 100%;
-        height: 460px;  /* Antes 420 — lo subí sin romper el panel */
+        height: 500px; /* ✔ más grande */
         border: none;
     }
 
     @media (max-width: 768px) {
+        .panel {
+            max-width: 90%;
+        }
         iframe {
-            height: 380px;
+            height: 420px;
         }
     }
 
     @media (max-width: 480px) {
+        .panel {
+            min-width: 95%;
+        }
         iframe {
-            height: 330px;
+            height: 360px;
         }
     }
 
-/* Animación de gorros */
-.hat {
-    position: fixed;
-    width: 200px;
-    height: 200px;
-    background-image: url('gorro.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    pointer-events: none;
-    opacity: 1;
-    transform-origin: center;
-    animation: hatLaunch var(--tSubida) ease-out,
-               hatFall var(--tCaida) ease-in-out var(--tSubida) forwards;
-}
-
-@keyframes hatLaunch {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(var(--dx), var(--altura)) rotate(var(--rotA)); }
-}
-
-@keyframes hatFall {
-    0% { transform: translate(var(--dx), var(--altura)) rotate(var(--rotA)); }
-    100% { transform: translate(var(--dx), 100vh) rotate(var(--rotB)); }
-}
-/* SOMBRA SUAVE ANIMADA */
-.panel {
-    animation: sombraSuave 4s ease-in-out infinite;
-}
-
-@keyframes sombraSuave {
-    0% {
-        box-shadow: 0 4px 12px rgba(0,0,0,0.18);
-        transform: translateY(0px);
+    /* Animación de gorros (la mantuve igual) */
+    .hat {
+        position: fixed;
+        width: 200px;
+        height: 200px;
+        background-image: url('gorro.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        pointer-events: none;
+        opacity: 1;
+        transform-origin: center;
+        animation: hatLaunch var(--tSubida) ease-out,
+                   hatFall var(--tCaida) ease-in-out var(--tSubida) forwards;
     }
-    50% {
-        box-shadow: 0 8px 20px rgba(0,0,0,0.26);
-        transform: translateY(-4px);
-    }
-    100% {
-        box-shadow: 0 4px 12px rgba(0,0,0,0.18);
-        transform: translateY(0px);
-    }
-}
 </style>
 </head>
 
