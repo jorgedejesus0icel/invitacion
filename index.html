@@ -59,6 +59,26 @@
         animation: sombraSuave 4s ease-in-out infinite;
     }
 
+    .panel-derecho {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 35px;
+}
+
+.panel-derecho ul {
+    text-align: left;
+    width: 90%;
+    max-width: 420px;
+    margin: auto;
+}
+
+.panel-derecho li {
+    margin-bottom: 8px;
+}
+
    
 
     /* IFRAME más grande pero controlado */
@@ -141,6 +161,7 @@ window.onload = lanzarGorros;
 <div class="main">
 <div class="container">
 
+
     <!-- PANEL IZQUIERDO -->
     <div class="panel">
         <iframe id="visor"></iframe>
@@ -151,6 +172,7 @@ window.onload = lanzarGorros;
 
     <!-- PANEL DERECHO -->
     <div class="panel">
+    <div class="panel panel-derecho"
         <p><b>Matrícula:</b> <span id="matricula"></span></p>
         <p><b>Nombre:</b> <span id="nombre"></span></p>
         <p><b>Fecha del evento:</b> <span id="fecha"></span></p>
