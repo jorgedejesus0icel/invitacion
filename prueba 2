@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Invitación</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ---------------------- FONDO ANIMADO ---------------------- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #8fa1c7 0%, #b5c6e0 25%, #e9f1fa 50%, #b5c6e0 75%, #8fa1c7 100%);
+    background-size: 400% 400%;
+    animation: fondoMovimiento 12s ease infinite;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px 10px;
+}
+
+@keyframes fondoMovimiento {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ---------------------- CARTA ANIMADA ---------------------- */
+#overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.50);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+
+.carta {
+    width: 300px;
+    height: 200px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    animation: flotar 3s infinite ease-in-out;
+    transition: transform .7s ease, opacity .6s ease;
+}
+
+@keyframes flotar {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-18px); }
+    100% { transform: translateY(0px); }
+}
+
+/* ---------------------- CONTENIDO REAL OCULTO AL INICIO ---------------------- */
+#contenidoReal {
+    display: none;
+    width: 100%;
+}
+
+/* ---------------------- PANEL Y CONTENEDORES ---------------------- */
+.main {
+    width: 100%;
+    max-width: 1300px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    gap: 35px;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.panel {
+    flex: 1;
+    min-width: 380px;
+    max-width: 600px;
+    border: 2px solid #aaa;
+    background: #fff;
+    padding: 25px;
+    min-height: 280px;
+    border-radius: 14px;
+}
+
+iframe {
+    width: 100%;
+    height: 650px;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    iframe { height: 420px; }
+}
+
+@media (max-width: 480px) {
+    iframe { height: 360px; }
+}
+
+/* ---------------------- GORROS ---------------------- */
+.hat {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    background-image: url('gorro.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    opacity: 1;
+    transform-origin: center;
+    animation: hatLaunch var(--tSubida) ease-out,
+             hatFall var(--tCaida) ease-in-out var(--tSubida) forwards;
+}
+
+@keyframes hatLaunch {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(var(--dx), var(--altura)) rotate(var(--rotA)); }
+}
+
+@keyframes hatFall {
+    from { transform: translate(var(--dx), var(--altura)) rotate(var(--rotA)); }
+    to { transform: translate(var(--dx), 100vh) rotate(var(--rotB)); }
+}
+
+/* ---------------------- LINEAMIENTOS ---------------------- */
+.lineamientos {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.lineamientos ul {
+    text-align: left;
+    width: 90%;
+    max-width: 420px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ---------------------- CARTA FLOTANTE ---------------------- -->
+<div id="overlay">
+    <div id="carta" class="carta">📩 Invitación</div>
+</div>
+
+<!-- ---------------------- CONTENIDO REAL ---------------------- -->
+<div id="contenidoReal">
+
+<div class="main">
+    <div class="container">
+
+        <!-- PANEL IZQUIERDO -->
+        <div class="panel">
+            <iframe id="visor"></iframe>
+            <p style="text-align:center; margin-top:10px;">
+                <a id="pdf_link" href="#" target="_blank">Abrir PDF en nueva pestaña</a>
+            </p>
+        </div>
+
+        <!-- PANEL DERECHO -->
+        <div class="panel">
+            <p><b>Matrícula:</b> <span id="matricula"></span></p>
+            <p><b>Nombre:</b> <span id="nombre"></span></p>
+            <p><b>Fecha del evento:</b> <span id="fecha"></span></p>
+            <p><b>Hora:</b> <span id="hora"></span></p>
+            <p><b>Lugar:</b> <span id="lugar"></span></p>
+
+            <div class="lineamientos">
+                <h3 style="font-size:28px;">Lineamientos</h3>
+                <p style="font-size:17px; font-weight:bold;">UNA VEZ INICIADA LA CEREMONIA NO SE PERMITIRÁ EL ACCESO.</p>
+                <ul>
+                    <li>El día del evento no se permitirá el pago de toga.</li>
+                    <li>Acceso de alumnos por la puerta 1, una hora antes.</li>
+                    <li>Acceso de invitados por puerta 2, 15 min antes.</li>
+                    <li>Invitados deberán mostrar su pase individual.</li>
+                    <li>Alumno entra con credencial, invitados con pase.</li>
+                    <li>Pases se entregarán solo si se ha pagado la toga.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</div> <!-- FIN contenidoReal -->
+
+<script>
+/* ---------------------- CARTA CLICK → MOSTRAR CONTENIDO ---------------------- */
+const carta = document.getElementById("carta");
+const overlay = document.getElementById("overlay");
+const contenido = document.getElementById("contenidoReal");
+
+carta.onclick = () => {
+    carta.style.transform = "scale(1.3)";
+    carta.style.opacity = "0";
+
+    setTimeout(() => {
+        overlay.style.display = "none";
+        contenido.style.display = "block";
+        document.body.style.overflow = "auto";
+    }, 650);
+};
+
+/* ---------------------- GORROS ---------------------- */
+function lanzarGorros() {
+    const cantidad = 14;
+
+    for (let i = 0; i < cantidad; i++) {
+        const hat = document.createElement("div");
+        hat.classList.add("hat");
+        hat.style.left = Math.random() * 100 + "vw";
+        hat.style.bottom = "-120px";
+
+        const dx = (Math.random() - 0.5) * 600;
+        hat.style.setProperty("--dx", dx + "px");
+
+        const altura = -(20 + Math.random() * 40) + "vh";
+        hat.style.setProperty("--altura", altura);
+
+        const rotA = (Math.random() * 200 - 100) + "deg";
+        const rotB = (Math.random() * 500 - 250) + "deg";
+        hat.style.setProperty("--rotA", rotA);
+        hat.style.setProperty("--rotB", rotB);
+
+        hat.style.setProperty("--tSubida", (1.2 + Math.random() * .9) + "s");
+        hat.style.setProperty("--tCaida", (1.3 + Math.random() * 1) + "s");
+
+        document.body.appendChild(hat);
+        setTimeout(() => hat.remove(), 6000);
+    }
+}
+window.onload = lanzarGorros;
+
+/* ---------------------- CSV ---------------------- */
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSsO-WFl736N6-bQ0e5H6OTgcOgVEhIBqaw9aPkg80OenTw1e6V0ZNO3dW6VNs5aZkqX8g8jwP3OitU/pub?gid=0&single=true&output=csv";
+
+const params = new URLSearchParams(window.location.search);
+const matriculaBuscar = params.get("matricula");
+
+function parseCSV(texto) {
+    return texto.trim().split("\n").map(fila =>
+        fila.split(",").map(x => x.replace(/\"/g, "").trim())
+    );
+}
+
+async function cargarDatos() {
+    const resp = await fetch(CSV_URL);
+    const texto = await resp.text();
+    const data = parseCSV(texto).slice(1);
+
+    const fila = data.find(r => r[0] === matriculaBuscar);
+    if (!fila) return;
+
+    document.getElementById("matricula").textContent = fila[0];
+    document.getElementById("nombre").textContent = fila[1];
+    document.getElementById("fecha").textContent = fila[2];
+    document.getElementById("hora").textContent = fila[3];
+    document.getElementById("lugar").textContent = fila[4];
+
+    document.getElementById("visor").src = fila[5];
+    document.getElementById("pdf_link").href = fila[6];
+}
+cargarDatos();
+</script>
+
+</body>
+</html>
