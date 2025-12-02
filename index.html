@@ -276,7 +276,7 @@ async function cargarDatos() {
     const pdfUrl = fila[6];
     const pdfPreview = fila[5];
 
-    document.getElementById("visor").src = pdfPreview;
+    document.getElementById("visor").src = "https://docs.google.com/gview?embedded=true&url=" + encodeURIComponent(pdfPreview);
     document.getElementById("pdf_link").href = pdfUrl;
 }
 
