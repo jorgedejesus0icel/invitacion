@@ -28,6 +28,7 @@ body {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+    
 
 /* ---------------------- CARTA ANIMADA ---------------------- */
 #overlay {
@@ -101,13 +102,24 @@ iframe {
     border: none;
 }
 
-@media (max-width: 768px) {
-    iframe { height: 420px; }
-}
 
-@media (max-width: 480px) {
-    iframe { height: 360px; }
-}
+    @media (max-width: 768px) {
+        .panel {
+            max-width: 90%;
+        }
+        iframe {
+            height: 420px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .panel {
+            min-width: 95%;
+        }
+        iframe {
+            height: 360px;
+        }
+    }
 
 /* ---------------------- GORROS ---------------------- */
 .hat {
@@ -171,28 +183,35 @@ iframe {
         </div>
 
         <!-- PANEL DERECHO -->
-        <div class="panel">
-            <p><b>Matrícula:</b> <span id="matricula"></span></p>
-            <p><b>Nombre:</b> <span id="nombre"></span></p>
-            <p><b>Fecha del evento:</b> <span id="fecha"></span></p>
-            <p><b>Hora:</b> <span id="hora"></span></p>
-            <p><b>Lugar:</b> <span id="lugar"></span></p>
+       <div class="panel">
+        <div class="panel panel-derecho">
+        <p><b>Matrícula:</b> <span id="matricula"></span></p>
+        <p><b>Nombre:</b> <span id="nombre"></span></p>
+        <p><b>Fecha del evento:</b> <span id="fecha"></span></p>
+        <p><b>Hora:</b> <span id="hora"></span></p>
+        <p><b>Lugar:</b> <span id="lugar"></span></p>
+     
+        <div class="lineamientos">
+    <h3 style="margin-top:20px; font-size:28px;">Lineamientos</h3>
 
-            <div class="lineamientos">
-                <h3 style="font-size:28px;">Lineamientos</h3>
-                <p style="font-size:17px; font-weight:bold;">UNA VEZ INICIADA LA CEREMONIA NO SE PERMITIRÁ EL ACCESO.</p>
-                <ul>
-                    <li>El día del evento no se permitirá el pago de toga.</li>
-                    <li>Acceso de alumnos por la puerta 1, una hora antes.</li>
-                    <li>Acceso de invitados por puerta 2, 15 min antes.</li>
-                    <li>Invitados deberán mostrar su pase individual.</li>
-                    <li>Alumno entra con credencial, invitados con pase.</li>
-                    <li>Pases se entregarán solo si se ha pagado la toga.</li>
-                </ul>
-            </div>
-        </div>
+    <p style="font-size:17px; font-weight:bold;">
+        UNA VEZ INICIADA LA CEREMONIA NO SE PERMITIRÁ EL ACCESO AL EVENTO.
+    </p>
 
-    </div>
+    <ul style="list-style-type: disc;">
+       <li>El día del evento no se permitirá el pago de toga; si no se tiene cubierto el pago, no se permitirá el acceso sin excepción.</li>
+       <li>El acceso para los alumnos será únicamente por la puerta 1, una hora antes del evento.</li>
+       <li>El acceso para los invitados será exclusivo por la puerta 2, 15 minutos antes del evento.</li>
+       <li>Para que los invitados puedan ingresar, deberán presentar su pase individual.</li>
+       <li>El alumno podrá ingresar con su credencial de estudiante y los invitados con su pase individual.</li>
+       <li>Para que el alumno pueda recoger los pases para sus invitados, deberá haber pagado la renta de la toga en Punto ICEL (fecha límite: 19 de enero).</li>
+    </ul>
+</div>
+
+  </div>
+</div>
+
+
 </div>
 
 </div> <!-- FIN contenidoReal -->
