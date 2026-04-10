@@ -328,8 +328,8 @@ async function cargarDatos() {
         document.getElementById("hora").textContent = fila[3] || "No disponible";
         document.getElementById("lugar").textContent = fila[4] || "No disponible";
         
-        // URL del PDF (columna H = índice 7)
-        const pdfUrl = fila[7] || "#";
+        // URL del PDF (columna I = índice 8)
+        const pdfUrl = fila[8] || "#";
         document.getElementById("pdf_link").href = pdfUrl;
         
         // URL de la imagen de invitación (columna J = índice 9)
